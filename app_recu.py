@@ -7,17 +7,18 @@ while True:
     limpiar_pantalla()
     match menu():
         case "1":
-            nombre_archivo = input("ingrese el nombre del archivo .CSV a cargar: ")
-            if nombre_archivo != "nombre del ARCHIVO (REEMPLAZAR)":
-                nombre_archivo = input("ingrese un archivo existente!")
-            flag_archivo = True
-            print("Archivo cargardo con exito!")
+                nombre_archivo = input("ingrese el nombre del archivo .CSV a cargar: ")
+                if nombre_archivo != "posts":
+                    nombre_archivo = input("ingrese un archivo existente!")
+                lista_usuarios = cargar_archivo_csv(nombre_archivo,lista)
+                flag_archivo = True
+                print("Archivo cargardo con exito!")
         case "2":
             if flag_archivo == False:
                 print("No hay un archivo cargado")
             else:
                 try:
-                    pass #rellenar
+                    mostrar_usuarios_tabla(cargar_archivo_csv("posts",lista))
                 except:
                     raise ValueError("ese archivo no existe")
         case "3":
@@ -25,7 +26,9 @@ while True:
                 print("No hay un archivo cargado")
             else:
                 try:
-                    pass #rellenar
+                    datos_random(lista_usuarios)
+                    mostrar_usuarios_tabla(lista_usuarios)
+                    
                 except:
                     raise ValueError("No hay un archivo cargado")
         case "4":
@@ -33,7 +36,8 @@ while True:
                 print("No hay un archivo cargado")
             else:
                 try:
-                    pass #rellenar
+                    crear_archivo_mejores_posts_csv(lista_usuarios)
+                    print("archivo creado con exito!")
                 except:
                     raise ValueError("No hay un archivo cargado")
                 
@@ -42,7 +46,8 @@ while True:
                 print("No hay un archivo cargado")
             else:
                 try:
-                    pass #rellenar
+                    crear_archivo_haters_csv(lista_usuarios)
+                    print("archivo creado con exito!")
                 except:
                     raise ValueError("No hay un archivo cargado")
                 
@@ -51,7 +56,8 @@ while True:
                 print("No hay un archivo cargado")
             else:
                 try:
-                    pass #rellenar
+                    promedio_followers = promediar_coleccion(lista_usuarios,"followers")
+                    print(f"PROMEDIO FOLLOWERS \n {promedio_followers:.2f}")
                 except:
                     raise ValueError("No hay un archivo cargado")
                 
@@ -60,7 +66,7 @@ while True:
                 print("no hay archivo cargado")
             else:
                 try:
-                    pass #rellenar
+                    crear_archivo_json(lista_usuarios)
                 except:
                     raise ValueError("No hay un archivo cargado")
 
@@ -69,10 +75,11 @@ while True:
                 print("no hay archivo cargado")
             else:
                 try:
-                    pass #rellenar
+                    user_mas_likeado_nombre = calcular_mayor_campo_nombre(lista_usuarios,"likes","user")
+                    user_mas_likeado_likes = calcular_mayor_campo_nombre(lista_usuarios,"likes","likes")
+                    print(f"MAS POPULAR---- \n Nombre: {user_mas_likeado_nombre} \t Likes: {user_mas_likeado_likes}")
                 except:
                     raise ValueError("No hay un archivo cargado")
-            
         case "9":
             if salir() == "no":
                 menu()
